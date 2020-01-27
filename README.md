@@ -44,4 +44,18 @@ If you have styles specific to individual pages on your site, you can place them
 ### Vendor
 Finally the *vendors* folder holds 3rd party code and the main.scss file uses @import statements to include the other files.
 
+## Generating Multiple HTML Files
+To generate more than one HTML file, declare the plugin more than once in your plugins array
+
+*webpack.config.js*
+```
+{
+  plugins: [
+    new HtmlWebpackPlugin({  // Also generate a demo.html
+      filename: 'demo.html',
+      template: 'src/html/demo.html'
+    })
+  ]
+}
+```
 
