@@ -3,6 +3,7 @@ require('dotenv').config();
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const config = {
     entry: './src/index.ts',
@@ -78,5 +79,14 @@ const config = {
     ],
 };
 
+module.exports = (env, options) => {
+    let production = options.mode === "production";
+    config.devtool = production ? false : "eval-sourcemap";
 
-module.exports = config;
+    if (production)
+        config.plugins = [
+            ...config.plugins,
+            new CopyWebpackPlugin([{ from: "./src/assets", to: "./assets" }])
+        ];
+    return config;
+};
